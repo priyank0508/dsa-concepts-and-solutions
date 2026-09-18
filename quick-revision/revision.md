@@ -158,3 +158,156 @@ var reverse = function(x) {
 ```
 
 ---
+
+### 6. Binary Search
+
+```cpp
+int binarySearch(vector<int>& arr, int s, int e, int key) {
+
+    int start = s;
+    int end = e;
+    int mid = start + (end-start)/2;
+
+    while (start <= end) {
+        
+        if(arr[mid] == key) {
+            return key;
+        }
+        
+        if(arr[mid] < key){
+            start = mid + 1;
+        } else {
+            end = mid - 1;
+        }
+        mid = start + (end-start)/2;
+    }
+
+    return -1;
+}
+```
+
+---
+
+### 7. Sqrt(x)
+
+```cpp
+class Solution {
+public:
+    long long binarySearch(int n) {
+        int s = 0;
+        int e = n;
+        long long int mid = s + (e - s) / 2;
+        long long ans = -1;
+        while (s <= e) {
+            long long square = mid * mid;
+            if (square == n) {
+                return mid;
+            }
+
+            if (square < n) {
+                ans = mid;
+                s = mid + 1;
+            } else {
+                e = mid - 1;
+            }
+            mid = s + (e - s) / 2;
+        }
+
+        return ans;
+    }
+
+    int mySqrt(int x) {
+        return binarySearch(x);
+    }
+};
+```
+
+---
+
+### 8. Search in Rotated Sorted Array
+
+```cpp
+int calculatePivot(vector<int>& arr, int n) {
+    int s = 0;
+    int e = n-1;
+    int mid = s + (e-s)/2;
+    
+    while(s<e){
+        if(arr[mid] >= arr[0]) {
+            s = mid + 1;
+        } else {
+            e = mid;
+        } 
+        
+        mid = s + (e-s)/2;
+    }
+    return s;
+}
+
+int binarySearch(vector<int>& arr, int s, int e, int key) {
+    
+    int start = s;
+    int end = e;
+    int mid = start + (end-start)/2;
+
+    while (start <= end) {
+        
+        if(arr[mid] == key) {
+            return mid;
+        }
+        
+        if(key > arr[mid]){
+            start = mid + 1;
+        } else {
+            end = mid - 1;
+        }
+        mid = start + (end-start)/2;
+    }
+
+    return -1;
+}
+
+int search(vector<int>& arr, int n, int k)
+{
+    int pivot = calculatePivot(arr, n);
+
+    if(k >= arr[pivot] && k <= arr[n-1]) {
+         return binarySearch(arr, pivot, n-1, k);
+    } else {
+        return binarySearch(arr, 0, pivot - 1, k);
+    }
+    
+    return -1;
+}
+```
+
+---
+
+### 9. Find Pivot in Rotated Array
+
+```cpp
+int calculatePivot(int arr[], int n) {
+    int s = 0;
+    int e = n-1;
+    int mid = s + (e-s)/2;
+    
+    while(s<e){
+        if(arr[mid] >= arr[0]) {
+            s = mid + 1;
+        } else {
+            e = mid;
+        } 
+        
+        mid = s + (e-s)/2;
+    }
+    return s;
+}
+
+int main() {
+
+    int arr[5] = {8,10,17,1,3};
+    cout << "Pivot is: " << calculatePivot(arr, 5) << endl;
+}
+```
+
+---
